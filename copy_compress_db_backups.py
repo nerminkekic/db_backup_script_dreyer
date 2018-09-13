@@ -6,20 +6,30 @@
 import zipfile
 import os
 import glob
-os.chdir('C:\\Users\\Nermin\\Desktop\\Projects\\PACSIW Script\\source')
+import shutil
+
+# Variables
+dbBackup = 'dbBackup.zip'
+
+# Set up source and destination directories
+os.chdir(
+    'C:\\Users\\Nermin\\Desktop\\Projects\\PACSIW Script\\source')
+sourceDir = 'C:\\Users\\Nermin\\Desktop\\Projects\\PACSIW Script\\source\\' + dbBackup
+destinationDir = 'C:\\Users\\Nermin\\Desktop\\Projects\\PACSIW Script\\destination\\'
 
 # Identify lattest db backup file for compression
 files = glob.iglob(
     'C:\\Users\\Nermin\\Desktop\\Projects\\PACSIW Script\\source\\*')
 latest_file = max(files, key=os.path.getctime)
-print(latest_file)
 dbBackupFile = os.path.split(latest_file)
-print(dbBackupFile[1])
+dbFile = dbBackupFile[1]
 
 # Create zip file
-with zipfile.ZipFile('dbBackup.zip', 'w', allowZip64=True) as dbZip:
-    dbZip.write(dbBackupFile[1])
+with zipfile.ZipFile(dbBackup, 'w', allowZip64=True) as dbZip:
+    dbZip.write(dbFile)
 
 # Copy compressed file to replication folder
+shutil.copy2(sourceDir, destinationDir)
+
 
 # Delete db backups older then 3 months
