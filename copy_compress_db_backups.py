@@ -1,8 +1,8 @@
-# This script will perform four steps.
+# This script will perform three steps.
 # 1. Compress PACSIW DB Backup
 # 2. Copy PACSIW DB Backup to replication folder
 # 3. Remove PACSIW DB Backups that are older then 3 months in source folder
-# 4. Remove PACSIW DB Backups that are older then 3 months in destination folder
+# 4. Remove PACSIW
 
 import zipfile
 import os
